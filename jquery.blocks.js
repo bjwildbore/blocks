@@ -57,6 +57,10 @@
 		return player;
 	}	
 	
+	function _checkAdjacency($block,currentPlayer){
+		
+	}
+	
 	function _performTurn($this,$block){	
 		var aPlayers = $this.data('players'),
 			currentPlayer = aPlayers[0],
@@ -65,7 +69,10 @@
 		
 			currentPlayer.turns = currentPlayer.turns - 1;
 			console.log(aPlayers);
-		//_changePlayerTurn($this);
+		
+		//check block adjacency
+		//check block state
+		//alter block state
 		
 		$block.attr('data-power',Number(currentPower)+1);
 		$block.attr('data-owner',currentPlayer.id);			
