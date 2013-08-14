@@ -11,18 +11,25 @@ width:20px;}
 .row:last-child{border-bottom:0}
 .grid{float:left;border:1px solid #ccc}
 
-.block{opacity:1}
-.block[data-owner='red']{background-color:red}
-.block[data-owner='blue']{background-color:blue}
-.block[data-owner='green']{background-color:green}
+.blockInner{
+	height:20px; 
+	width:20px;
+	opacity:1;
+	border-radius:0px
+}
 
-.block[data-power='1']{opacity:.1}
-.block[data-power='2']{opacity:.2}
-.block[data-power='3']{opacity:.3}
-.block[data-power='4']{opacity:.4}
-.block[data-power='5']{opacity:.6}
-.block[data-power='6']{opacity:.7}
-.block[data-power='7']{opacity:.8}
-.block[data-power='8']{opacity:.9}
-.block[data-power='9']{opacity:.99}
+.block[data-owner='red'] .blockInner{background-color:red}
+.block[data-owner='blue'] .blockInner{background-color:blue}
+.block[data-owner='green'] .blockInner{background-color:green}
+
+.block[data-power='0'] .blockInner{opacity:.1;border-radius:1px}
+.block[data-power='1'] .blockInner{opacity:.1;border-radius:2px}
+.block[data-power='2'] .blockInner{opacity:.2;border-radius:3px}
+.block[data-power='3'] .blockInner{opacity:.3;border-radius:4px}
+.block[data-power='4'] .blockInner{opacity:.4;border-radius:5px}
+.block[data-power='5'] .blockInner{opacity:.6;border-radius:6px}
+.block[data-power='6'] .blockInner{opacity:.7;border-radius:7px}
+.block[data-power='7'] .blockInner{opacity:.8;border-radius:8px}
+.block[data-power='8'] .blockInner{opacity:.9;border-radius:9px}
+.block[data-power='9'] .blockInner{opacity:.99;border-radius:10px}
 

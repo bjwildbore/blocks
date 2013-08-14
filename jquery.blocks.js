@@ -23,11 +23,11 @@
 		sGrid = '<div class="grid">';
 		
 		for (i = 0; i < w; i++){	
-			sRow += '<div class=" block col'+ i +'" data-base="" data-owner="empty" data-power="0" data-grouped="0" "></div>'
+			sRow += '<div class=" block col'+ i +'" data-coords="'+i+',datay" data-base="" data-owner="empty" data-power="0" data-grouped="0" "><div class="blockInner"></div></div>'
 		}	
 		
 		for (i = 0; i < h; i++){	
-			sGrid += '<div class=" row row'+ i +' ">'+sRow+'</div>';
+			sGrid += '<div class=" row row'+ i +' ">'+sRow.replace(/datay/g,i)+'</div>';
 		}
 		sGrid += '</div>'
 		
@@ -37,7 +37,7 @@
 	function _addEventHandlers($this){	
 		$this.on("click", "div.block", function(event){
 			
-			_performTurn($this,$(this));			
+			_blockClickHandler($this,$(this));			
 
 		});
 	}
@@ -57,31 +57,51 @@
 		return player;
 	}	
 	
-	function _checkAdjacency($block,currentPlayer){
-		
+	function _checkValidBlock($block,currentOwner,currentPlayer,currentX,currentY){
+
+		return true;	
+			
+			
 	}
 	
-	function _performTurn($this,$block){	
+	function _attackBlock($block){
+		return true;			
+	}	
+	
+	function _blockClickHandler($this,$block){	
 		var aPlayers = $this.data('players'),
 			currentPlayer = aPlayers[0],
 			currentPower  = $block.attr('data-power'),
-			currentOwner  = $block.attr('data-owner');
+			currentOwner  = $block.attr('data-owner'),
+			currentcoords  = $block.attr('data-coords'),
+			currentX  = currentcoords.split(',')[0],
+			currentY  = currentcoords.split(',')[1],
+			validBlock = false;
+			
+		//if already own block reinforce
+		if(currentPlayer.id === currentOwner ){
+			if(currentPower < 10){
+				$block.attr('data-power',Number(currentPower)+1);								
+			}				
+			return true;				
+		}
 		
-			currentPlayer.turns = currentPlayer.turns - 1;
-			console.log(aPlayers);
+		validBlock = _checkValidBlock($block,currentPlayer,currentX,currentY);
 		
-		//check block adjacency
-		//check block state
-		//alter block state
+		if(!validBlock){
+			return false
+		}
 		
-		$block.attr('data-power',Number(currentPower)+1);
-		$block.attr('data-owner',currentPlayer.id);			
-		
+		if( currentOwner == 'empty' ){
+			$block.attr('data-owner',currentPlayer.id);
+			$block.attr('data-power',Number(currentPower)+1);
+		} else {			
+			_attackBlock($block);			
+		}					
 		
 		if(currentPlayer.turns == 0){
-			_changePlayerTurn($this);			
-		}
-	
+			//_changePlayerTurn($this);			
+		}	
 	
 	}
 	
